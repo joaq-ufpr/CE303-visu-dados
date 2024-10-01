@@ -1,0 +1,89 @@
+## Exemplo de um diagrama de cordas
+
+```{R}
+v1 <- c(rep("F", 4), rep("M", 5), "F", "M")
+v2 <- c('I', 'I', 'B', 'I', 'B', 'P', 'B', 'R', 'B', 'I', 'R')
+
+length(v1)
+length(v2)
+
+require(circlize)
+
+m <- data.frame(table(v1,v2))
+
+par(cex = 3, mar = c(0, 0, 0, 0))
+chordDiagram(m,
+             col = rainbow(6),
+             annotationTrackHeight = mm_h(c(3,3)),
+             annotationTrack = c("name", "grid"),
+             grid.border = "Black",
+             diffHeight = mm_h(5))
+```
+
+## Gráfico Hexbin
+
+```{R}
+require(hexbin)
+hh <- hexbin(iris$Sepal.Length, iris$Petal.Width)
+plot(hh)
+```
+## Gráfico de Bolhas
+
+```{R}
+x <- c(10, 20, 15, 20, 40)
+y <- c(1, 4, 5, 1, 5)
+z <- c(41, 22, 20, 11, 50)
+rotulos <- c("A", "A", "A", "B", "B")
+cc <- c(2, 2, 2, 3, 3)
+
+symbols(x = x,
+        y = y,
+        circles = z,
+        inches = 0.3,
+        bg = cc)
+
+text(x, y, rotulos, cex = 2)
+
+legend(30,
+       2,
+       c("cat1", "cat2"),
+       pch = 19,
+       cex = 1.5,
+       col = c(2,3),
+       box.col = NA)
+```
+
+## Gráfico de Barras
+
+```{R}
+ano <- c(rep(2023, 12), rep(2023, 12))
+mes <- 1:12
+ven <- rpois(24,10)
+
+cores <- c("#299437", "#ab54b0")
+
+dados <- rbind(ven[1:12], ven[13:24])
+soma <- apply(dados, 2, sum) #2= por coluna
+
+multipl_matrizes <- dados %*% diag(1/soma)
+
+## Barras conjuntas
+barplot(multipl_matrizes,
+        names.arg = mes,
+        col = cores,
+        border = F)
+
+## Barras alinhadas
+## agora com besides
+barplot(dados,
+        beside = T,
+        names.arg = mes,
+        col = cores,
+        border = F)
+```
+
+## Gráfico de mosaico
+
+```{R}
+mosaicplot(HairEyeColor, col = c("purple", "gold"))
+```
