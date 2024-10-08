@@ -1,0 +1,88 @@
+## Mapa de calor 
+
+```{r warning = FALSE, message = FALSE}
+## require(mtcars)
+
+data(mtcars)
+mtcars2 <- apply(mtcars, 2, scale)
+M <- as.matrix(mtcars2)
+heatmap(M,
+        col = terrain.colors(256),
+        Rowv = NA,
+        Colv= NA)
+```
+
+## Tabplot
+
+```{r warning = FALSE, message = FALSE}
+require(devtools)
+
+## install_github("edwindj/ffbase", subdir = "pkg")
+## install_github("mtennekes/tabplot")
+## require(tabplot)
+
+## tabplot(mtcars, sortCol = 1)
+
+```
+
+## Faces de Chernoff
+
+```{r warning = FALSE, message = FALSE}
+install.packages("aplpack")
+require(aplpack)
+data("longley")
+faces(longley[, -6], face.type = 0)
+
+faces(mtcars,
+      cex = 1,
+      nrow.plot = 4,
+      ncol.plot = 8,
+      col.face = colorRampPalette(c('white', 'yellow3'))(10))
+
+```
+
+
+## Nuvem de palavras
+
+```{r warning = FALSE, message = FALSE}
+arquivo <- readLines("https://raw.githubusercontent.com/andersonara/datasets/refs/heads/master/brasil_onu23.txt")
+
+arquivo <- iconv(arquivo, from = "", to = "utf-8")
+
+require(tm)
+require(wordcloud)
+doc <- Corpus(VectorSource(arquivo))
+doc <- tm_map(doc, removePunctuation)
+doc <- tm_map(doc, tolower)
+doc <- tm_map(doc, removeWords, c(stopwords("portuguese"), "par", "faz", "nã"))
+wordcloud(doc,
+          col = colorRampPalette(c("grey", "purple3", "blue4"))(5), min.freq = 2)
+```
+
+## Sunburst
+```{r warning = FALSE, message = FALSE}
+sequencia <- read.table(text = 'A-aa-aaa-end
+A-aa-aaa-end
+A-aa-vvv-end
+A-aa-vvv-end
+A-cc-vvv-end
+A-cc-vvv-end
+B-aa-vvv-end
+B-aa-vvv-end
+B-bb-rr-end
+B-bb-rr-end
+C-aa-rr-end
+C-aa-rr-end
+C-bb-rr-end
+C-bb-rr-end
+C-cc-rr-end')
+
+sequencia$V2 <- seq_along(sequencia$V1)
+require(sunburstR)
+sunburst(sequencia)
+```
+
+## Sankey diagram
+```{r}
+
+```

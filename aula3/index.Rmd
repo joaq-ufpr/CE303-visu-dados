@@ -86,4 +86,6 @@ barplot(dados,
 
 ```{R}
 mosaicplot(HairEyeColor, col = c("purple", "gold"))
+
+mosaicplot(table(v1, v2))
 ```
