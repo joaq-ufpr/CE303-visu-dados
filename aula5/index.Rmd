@@ -1,0 +1,51 @@
+## Gráfico Sankey
+
+```{r warning = FALSE, message = FALSE}
+library(networkD3)
+library(dplyr)
+
+# colocar os nós
+knots <- tibble(names = c("EUA e Canadá", #0
+                          "Europa, Oriente Médio e África", #1
+                          "LatAm", #2
+                          "Asia e Pacífico", #3
+                          "Receita Total", #4
+                          "CMV", #5
+                          "Lucro Bruto", #6
+                          "Lucro Operacional", #7
+                          "Custo Operacional", #8
+                          "Lucro  Líquido", #9
+                          "IR", #10
+                          "Juros", #11
+                          "Marketing", #12
+                          "Tech e Dev", #13
+                          "Adm e Geral")) #14
+
+# conexoes
+links <- tibble(
+    source = c(0, 1, 2, 3,
+               4, 4,
+               6, 6,
+               7, 7, 7,
+               8, 8, 8),
+    target = c(4, 4, 4, 4,
+               5, 6,
+               7, 8,
+               9, 10, 11,
+               12, 13, 14),
+    value = c(4.3, 3.0, 1.2, 1.1,
+              5.2, 4.4,
+              2.6, 1.8,
+              2.1, 0.4, 0.089,
+              0.6, 0.7, 0.4))
+
+# Render do gráfico
+sankey <- sankeyNetwork(Links = links,
+                        Nodes = knots,
+                        Value = "value",
+                        NodeID = "names",
+                        units = "Bi")
+
+sankey
+
+```
